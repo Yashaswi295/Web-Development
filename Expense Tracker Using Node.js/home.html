@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudgetBee - Home</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-image: url(h3.jpeg);
+            background-size: cover;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            color: white;
+            background-size: cover;
+        }
+
+        h1 {
+            font-size: 4em;
+            font-weight: bold;
+            color: #235718; /* Vibrant golden-yellow color */
+            margin-bottom: 20px;
+            letter-spacing: 2px; /* More spacing for a modern look */
+            animation: zoomIn 1.5s ease-in-out; /* Zoom-in effect for title */
+        }
+
+        p {
+            font-size: 1.4em;
+            margin-bottom: 50px;
+            line-height: 1.6;
+            color: black;
+            animation: fadeIn 2s ease-in-out; /* Fade-in effect for description */
+        }
+
+        .container{
+            text-align: center;
+            padding-left: 850px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            color: white;
+            background-color: #235718;
+            border: none;
+            border-radius: 30px; /* Rounder button */
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.3); /* Button shadow */
+            animation: fadeIn 2.5s ease-in-out; /* Fade-in effect for button */
+        }
+        
+        .btn:hover {
+            background-color: #499d32;
+            transform: translateY(-3px); /* Slight upward movement on hover */
+        }
+
+        .btn:active {
+            transform: translateY(1px); /* Button moves down slightly when clicked */
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.8);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            p {
+                font-size: 1.1em;
+                margin-bottom: 30px;
+            }
+
+            .btn {
+                padding: 12px 30px;
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>BUDGETBEE</h1>
+        <p>Effortlessly manage your expenses<br> stay within budget and <br> reach your savings goals with ease <br>Let BUDGETBEE keep you on track!</p>
+            
+
+        <!-- Button linking to the login.html -->
+        <a href="login.html" class="btn">Get Started</a>
+    </div>
+
+</body>
+</html>

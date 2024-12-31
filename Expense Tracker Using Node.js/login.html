@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Register</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url(bg.jpg);
+            background-size: cover;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            margin: 10px 0;
+        }
+        .toggle {
+            margin-top: 15px;
+            color: #555;
+            cursor: pointer;
+        }
+        .toggle:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 id="formTitle">Login</h2>
+        <div class="error" id="errorMessage"></div>
+
+        <!-- Login Form -->
+        <div id="loginForm">
+            <input type="text" id="loginUsername" placeholder="Username" required>
+            <input type="password" id="loginPassword" placeholder="Password" required>
+            <button onclick="login()">Login</button>
+        </div>
+
+        <!-- Registration Form (hidden by default) -->
+        <div id="registerForm" style="display: none;">
+            <input type="text" id="registerUsername" placeholder="Username" required>
+            <input type="email" id="registerEmail" placeholder="Email" required>
+            <input type="password" id="registerPassword" placeholder="Password" required>
+            <button onclick="register()">Register</button>
+        </div>
+
+        <div class="toggle" onclick="toggleForm()">Don't have an account? Register</div>
+    </div>
+
+    <script>
+        let isLogin = true; // Track if the user is in login or register mode
+
+        // Toggle between Login and Register forms
+        function toggleForm() {
+            isLogin = !isLogin;
+            document.getElementById('errorMessage').textContent = '';
+            
+            if (isLogin) {
+                document.getElementById('formTitle').textContent = 'Login';
+                document.getElementById('loginForm').style.display = 'block';
+                document.getElementById('registerForm').style.display = 'none';
+                document.querySelector('.toggle').textContent = "Don't have an account? Register";
+            } else {
+                document.getElementById('formTitle').textContent = 'Register';
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('registerForm').style.display = 'block';
+                document.querySelector('.toggle').textContent = "Already have an account? Login";
+            }
+        }
+
+        // Handle User Registration
+        function register() {
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Validate inputs
+            if (!username || !email || !password) {
+                errorMessage.textContent = 'All fields are required!';
+                return;
+            }
+
+            // Check if user already exists in localStorage
+            const existingUser = localStorage.getItem(username);
+            if (existingUser) {
+                errorMessage.textContent = 'Username already exists!';
+                return;
+            }
+
+            // Log data for debugging
+            console.log("Registering user:", { username, email, password });
+
+            // Save the new user in localStorage
+            const newUser = { email, password };
+            localStorage.setItem(username, JSON.stringify(newUser));
+
+            alert('Registration successful! You can now log in.');
+            toggleForm(); // Switch back to login form
+        }
+
+        // Handle User Login
+        function login() {
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Validate inputs
+            if (!username || !password) {
+                errorMessage.textContent = 'Please enter both username and password!';
+                return;
+            }
+
+            // Check if user exists in localStorage
+            const storedUser = localStorage.getItem(username);
+            if (!storedUser) {
+                errorMessage.textContent = 'User not found! Please register.';
+                return;
+            }
+
+            // Parse the stored user data and check password
+            const userData = JSON.parse(storedUser);
+            if (userData.password === password) {
+                // Log in the user and store session state in localStorage
+                localStorage.setItem('isLoggedIn', username);
+                window.location.href = 'index.html'; // Redirect to dashboard page
+            } else {
+                errorMessage.textContent = 'Incorrect password!';
+            }
+        }
+    </script>
+</body>
+</html>
